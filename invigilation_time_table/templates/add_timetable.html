@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Timetable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            overflow: auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        select, input[type="text"], input[type="time"], input[type="date"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+            white-space: nowrap;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function updateDesignation() {
+            var facultySelect = document.getElementById('faculty_name');
+            var designationInput = document.getElementById('designation');
+            designationInput.value = facultySelect.options[facultySelect.selectedIndex].getAttribute('data-designation');
+        }
+    </script>
+</head>
+<body>
+    <h1>Add Timetable</h1>
+    <form method="POST" action="{{ url_for('add_timetable') }}">
+        <label for="faculty_name">Faculty Name:</label>
+        <select id="faculty_name" name="faculty_name" onchange="updateDesignation()" required>
+            <option value="">Select Faculty</option>
+            {% for faculty in faculty_list %}
+            <option value="{{ faculty.name }}" data-designation="{{ faculty.designation }}">{{ faculty.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" readonly>
+
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Period 1</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 2</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 3</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 4</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 5</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 6</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Period 7</th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+                    <tr>
+                        <td>{{ day }}</td>
+                        {% for period in range(1, 8) %}
+                        <td>
+                            <input type="text" name="{{ day | lower }}[subject][]" placeholder="Subject">
+                        </td>
+                        <td>
+                            <input type="time" name="{{ day | lower }}[from][]" placeholder="From">
+                        </td>
+                        <td>
+                            <input type="time" name="{{ day | lower }}[to][]" placeholder="To">
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

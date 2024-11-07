@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Timetable</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #343a40;
+        }
+        table {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        td {
+            text-align: center;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .no-entries {
+            color: #dc3545; /* Bootstrap danger color */
+            text-align: center;
+            font-weight: bold;
+        }
+        .search-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Timetable Details</h1>
+
+        <!-- Search and Filter Form -->
+        <div class="search-container mb-4">
+            <form method="GET" action="{{ url_for('view_timetable') }}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="faculty_name">Faculty Name</label>
+                        <input type="text" class="form-control" id="faculty_name" name="faculty_name" placeholder="Enter faculty name" value="{{ request.args.get('faculty_name', '') }}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" value="{{ request.args.get('date', '') }}">
+                    </div>
+                    <div class="form-group col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Faculty Name</th>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Subject</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if timetables %}
+                    {% for entry in timetables %}
+                        {% for day, classes in entry.items() %}
+                            {% if day not in ['_id', 'faculty_id', 'faculty_name', 'faculty_email', 'date'] %}
+                                {% for i in range(classes.subject|length) %}
+                                    <tr>
+                                        {% if loop.index0 == 0 %}
+                                            <td rowspan="{{ classes.subject|length }}">{{ entry.faculty_name }}</td>
+                                            <td rowspan="{{ classes.subject|length }}">{{ entry.date }}</td>
+                                        {% endif %}
+                                        <td>{{ day.capitalize() }}</td>
+                                        <td>{{ classes.subject[i] }}</td>
+                                        <td>{{ classes.from[i] }}</td>
+                                        <td>{{ classes.to[i] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="no-entries">No timetable entries found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('dashboard', role=session.role) }}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

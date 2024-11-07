@@ -1,0 +1,58 @@
+<!-- time_tables.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Timetables</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Timetables</h1>
+    {% if timetables %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Faculty Name</th>
+                    <th>Faculty ID</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timetable in timetables %}
+                    <tr>
+                        <td>{{ timetable.faculty_name }}</td>
+                        <td>{{ timetable.faculty_id }}</td>
+                        <td>{{ timetable.date }}</td>
+                        <td><a href="{{ url_for('time_tables', id=timetable._id) }}">View Details</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h2>No timetables available.</h2>
+    {% endif %}
+    <a href="{{ url_for('dashboard', role='user') }}">Back to Dashboard</a>
+</body>
+</html>

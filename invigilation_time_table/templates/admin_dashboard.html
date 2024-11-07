@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        /* Dashboard Content */
+        .content {
+            padding: 2em;
+            text-align: center;
+        }
+
+        /* Card Container */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Individual Card Style */
+        .card {
+            width: 250px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+            /* Added to indicate clickable */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'admin_nav.html' %}
+
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        
+        <div class="card-container">
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('add_faculty') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">👩‍🏫</div>
+                        <div class="card-title">Add Faculty</div>
+                        <p>Add new faculty members to the system.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('update_faculty') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">✏️</div>
+                        <div class="card-title">Update Faculty</div>
+                        <p>Update details of existing faculty members.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('add_notification') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">📢</div>
+                        <div class="card-title">Add Notification</div>
+                        <p>Add notifications for faculty or students.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('update_notification') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-title">Update Notification</div>
+                        <p>Update existing notifications.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('schedule_examination') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">📅</div>
+                        <div class="card-title">Schedule Examination</div>
+                        <p>Schedule examinations for various subjects.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('update_examination') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">Update Examination</div>
+                        <p>Update examination schedules.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('assign_faculty') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">👨‍🏫</div>
+                        <div class="card-title">Assign Faculty</div>
+                        <p>Assign faculty to specific subjects.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('assigned_faculty_page') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">👨‍🏫</div>
+                        <div class="card-title">Assigned Faculty</div>
+                        <p>Assigned faculty to specific subjects.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('available_faculty') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">Available Faculty</div>
+                        <p>View available faculty members.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('add_timetable') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">🕒</div>
+                        <div class="card-title">Add Time Table</div>
+                        <p>Add new timetables for classes.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="cursor: pointer;">
+                <a href="{{ url_for('update_timetable') }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-content">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-title">Update Time Table</div>
+                        <p>Update existing timetables.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

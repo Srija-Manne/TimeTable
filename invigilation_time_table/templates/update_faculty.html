@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Faculty</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'admin_nav.html' %}
+    <div class="container mt-5">
+        <h2>Update Faculty</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Designation</th>
+                    <th>Contact Number</th>
+                    <th>Subject</th>
+                    <th>Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for faculty in faculty_list %}
+                <tr>
+                    <td>{{ faculty.name }}</td>
+                    <td>{{ faculty.email }}</td>
+                    <td>{{ faculty.designation }}</td>
+                    <td>{{ faculty.contact_number }}</td>
+                    <td>{{ faculty.subject }}</td>
+                    <td>{{ faculty.address }}</td>
+
+                    <td>
+                        <a href="{{ url_for('edit_faculty', email=faculty.email) }}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

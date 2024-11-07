@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Faculty</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Assigned Faculty List for Examination</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>College Name</th>
+                    <th>Branch Name</th>
+                    <th>Department</th>
+                    <th>Day</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Timing</th>
+                    <th>Assigned Faculty</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedule_data %}
+                <tr>
+                    <td>{{ schedule['College Name'] }}</td>
+                    <td>{{ schedule['Branch Name'] }}</td>
+                    <td>{{ schedule['Department'] }}</td>
+                    <td>{{ schedule['Day'] }}</td>
+                    <td>{{ schedule['From Date'] }}</td>
+                    <td>{{ schedule['To Date'] }}</td>
+                    <td>{{ schedule['Timing'] }}</td>
+                    <td>{{ schedule['assigned_faculty'] }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

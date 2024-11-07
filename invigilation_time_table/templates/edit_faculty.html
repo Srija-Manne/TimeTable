@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Faculty</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'admin_nav.html' %}
+    <div class="container mt-5">
+        <h2>Edit Faculty</h2>
+        <form action="{{ url_for('edit_faculty', email=faculty.email) }}" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ faculty.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="designation">Designation</label>
+                <input type="text" class="form-control" id="designation" name="designation" value="{{ faculty.designation }}" required>
+            </div>
+            <div class="form-group">
+                <label for="contact_number">Contact Number</label>
+                <input type="text" class="form-control" id="contact_number" name="contact_number" value="{{ faculty.contact_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" value="{{ faculty.subject }}" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="address" name="address" required>{{ faculty.address }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="password">New Password (leave blank if not changing)</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Faculty</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Examination</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Upload Examination Schedule</h2>
+        <a href="{{ url_for('download_schedule_format') }}" class="btn btn-primary mb-3">Download Schedule Format</a>
+        <form action="{{ url_for('upload_schedule') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload Excel or CSV file:</label>
+                <input type="file" class="form-control-file" id="file" name="file" required>
+            </div>
+
+            <div class="form-group">
+                <label for="exam_start_date">Examination Start Date:</label>
+                <div class="input-group date" id="examStartDatePicker">
+                    <input type="text" class="form-control" id="exam_start_date" name="exam_start_date" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exam_end_date">Examination End Date:</label>
+                <div class="input-group date" id="examEndDatePicker">
+                    <input type="text" class="form-control" id="exam_end_date" name="exam_end_date" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exam_time">Examination Time:</label>
+                <input type="time" class="form-control" id="exam_time" name="exam_time" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Upload Schedule</button>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $('#examStartDatePicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+                defaultDate: moment(),
+                useCurrent: false //Important! See issue #1075
+            });
+            $('#examEndDatePicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+                defaultDate: moment(),
+                useCurrent: false //Important! See issue #1075
+            });
+        });
+    </script>
+</body>
+</html>

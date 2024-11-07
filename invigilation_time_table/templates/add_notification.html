@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Notification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Add Notifications</h2>
+        <a href="{{ url_for('download_notification_format') }}" class="btn btn-primary mb-3">Download Notification Format</a>
+        
+        <form action="{{ url_for('upload_notification') }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload Excel or CSV file:</label>
+                <input type="file" class="form-control-file" id="file" name="file" required>
+            </div>
+            <button type="submit" class="btn btn-success">Upload Notifications</button>
+        </form>
+    </div>
+</body>
+</html>

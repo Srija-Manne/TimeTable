@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Examination Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Examination Schedule</h2>
+        
+        <!-- Filter Form -->
+        <form id="filterForm" class="mb-4">
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="collegeName" class="form-control" placeholder="College Name">
+                </div>
+                <div class="col">
+                    <input type="text" id="branchName" class="form-control" placeholder="Branch Name">
+                </div>
+                <div class="col">
+                    <input type="text" id="department" class="form-control" placeholder="Department">
+                </div>
+                <div class="col">
+                    <input type="date" id="fromDate" class="form-control">
+                </div>
+                <div class="col">
+                    <input type="date" id="toDate" class="form-control">
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" id="filterBtn">Filter</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>College Name</th>
+                    <th>Branch Name</th>
+                    <th>Department</th>
+                    <th>Day</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Timing</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="scheduleTableBody">
+                {% for schedule in schedule_data %}
+                <tr>
+                    <td>{{ schedule['College Name'] }}</td>
+                    <td>{{ schedule['Branch Name'] }}</td>
+                    <td>{{ schedule['Department'] }}</td>
+                    <td>{{ schedule['Day'] }}</td>
+                    <td>{{ schedule['From Date'] }}</td>
+                    <td>{{ schedule['To Date'] }}</td>
+                    <td>{{ schedule['Timing'] }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        // Filter functionality
+        $('#filterBtn').on('click', function() {
+            const collegeName = $('#collegeName').val().toLowerCase();
+            const branchName = $('#branchName').val().toLowerCase();
+            const department = $('#department').val().toLowerCase();
+            const fromDate = $('#fromDate').val();
+            const toDate = $('#toDate').val();
+
+            $('#scheduleTableBody tr').filter(function() {
+                $(this).toggle(
+                    ($(this).find('td:nth-child(1)').text().toLowerCase().indexOf(collegeName) > -1 || !collegeName) &&
+                    ($(this).find('td:nth-child(2)').text().toLowerCase().indexOf(branchName) > -1 || !branchName) &&
+                    ($(this).find('td:nth-child(3)').text().toLowerCase().indexOf(department) > -1 || !department) &&
+                    ($(this).find('td:nth-child(5)').text() >= fromDate || !fromDate) &&
+                    ($(this).find('td:nth-child(6)').text() <= toDate || !toDate)
+                );
+            });
+        });
+    </script>
+</body>
+</html>

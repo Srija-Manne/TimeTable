@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        /* Profile Card Styling */
+        .profile-card {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .profile-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .profile-card h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .profile-card p {
+            color: #666;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .profile-card .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-card .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <!-- Display Avatar -->
+        <img src="{{ profile_info['avatar_url'] }}" alt="Avatar">
+
+        <!-- Display User Information -->
+        <h2>{{ profile_info['username'] }}</h2>
+        <p>Role: {{ profile_info['role'].capitalize() }}</p>
+        <p>Email: {{ profile_info['email'] }}</p>
+
+        <!-- Back to Dashboard Button -->
+        <a href="{{ url_for('dashboard', role=profile_info['role']) }}" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

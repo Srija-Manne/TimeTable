@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Faculty</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Faculty Availability</h2>
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Branch</th>
+                    <th>Designation</th>
+                    <th>Availability Date</th>
+                    <th>Available Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for faculty in faculty_availability %}
+                    <tr>
+                        <td>{{ faculty.name }}</td>
+                        <td>{{ faculty.email }}</td>
+                        <td>{{ faculty.contactNumber }}</td>
+                        <td>{{ faculty.branch }}</td>
+                        <td>{{ faculty.designation }}</td>
+                        <td>{{ faculty.availabilityDate }}</td>
+                        <td>{{ faculty.availableTime }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
